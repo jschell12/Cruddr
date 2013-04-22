@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitOfWork", "UnitOfWork.csproj", "{BFF345D0-7733-48AB-918B-308C4A114AE2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cruddr", "Cruddr.csproj", "{BFF345D0-7733-48AB-918B-308C4A114AE2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{4D58DEF6-08F7-429E-81B8-C80E7B1CAE97}"
 	ProjectSection(SolutionItems) = preProject

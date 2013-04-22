@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace UnitOfWork.PagedList
+namespace Cruddr.PagedList
 {
     /// <summary>
     /// Container for extension methods designed to simplify the creation of instances of <see cref="PagedList{T}"/>.

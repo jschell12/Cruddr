@@ -10,14 +10,14 @@ using System.Linq.Expressions;
 using Ninject;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
-using UnitOfWork.PagedList;
+using Cruddr.PagedList;
 
-namespace UnitOfWork
+namespace Cruddr
 {
     /// <summary>
-    /// This is a UnitOfWork-EntityFramework wrapper.
+    /// This is a Cruddr-EntityFramework wrapper.
     /// </summary>
-    public class EFUnitOfWork : IUnitOfWork<DbContext>
+    public class EFCruddr : ICruddr<DbContext>
     {
         protected bool disposed = false;
 
@@ -45,13 +45,13 @@ namespace UnitOfWork
         /// </summary>
         /// <param name="context"></param>
         [Inject]
-        public EFUnitOfWork(ExampleModelContainer context)
+        public EFCruddr(ExampleModelContainer context)
         {
             this.context = context;
 
         }
 
-        public EFUnitOfWork()
+        public EFCruddr()
         {
             // Use dependency injection to create context
             this.context = new ExampleModelContainer();

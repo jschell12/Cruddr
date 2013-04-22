@@ -11,7 +11,7 @@ using System;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 
-namespace UnitOfWork
+namespace Cruddr
 {
     public partial class ExampleModelContainer : DbContext
     {

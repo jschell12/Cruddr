@@ -7,22 +7,22 @@ using System.Data.Entity;
 using System.Xml.Linq;
 using System.Linq.Expressions;
 using Ninject;
-using UnitOfWork.PagedList;
+using Cruddr.PagedList;
 
-namespace UnitOfWork
+namespace Cruddr
 {
     /// <summary>
-    /// This class wraps the functionality of any IUnitOfWork implementation to be
+    /// This class wraps the functionality of any ICruddr implementation to be
     /// exposed to any calling class from an external library referencing Suppliers.Data. 
-    /// It implementsthe IUnitOfWork interface and calls the IUnitOfWork concrete 
+    /// It implementsthe ICruddr interface and calls the ICruddr concrete 
     /// implementation's methods.
     /// </summary>
-    public class UnitOfWork : ISuppliersContext
+    public class Cruddr : ISuppliersContext
     {
         protected bool disposed = false;
 
-        #region UnitOfWork
-        protected IUnitOfWork UOW { get; set; }
+        #region Cruddr
+        protected ICruddr UOW { get; set; }
         #endregion
 
 
@@ -36,17 +36,17 @@ namespace UnitOfWork
         /// </summary>
         /// <param name="context"></param>
         [Inject]
-        public UnitOfWork(IUnitOfWork context)
+        public Cruddr(ICruddr context)
         {
             this.UOW = context;
         }
 
-        public UnitOfWork()
+        public Cruddr()
         {
             // Use dependency injection to create context
             //TODO: remove below
 
-            this.UOW = new EFUnitOfWork(new ExampleModelContainer());
+            this.UOW = new EFCruddr(new ExampleModelContainer());
         }
 
 

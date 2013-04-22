@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace UnitOfWork.PagedList
+namespace Cruddr.PagedList
 {
     ///<summary>
     /// Non-enumerable version of the PagedList class.

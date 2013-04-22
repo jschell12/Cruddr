@@ -8,7 +8,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq.Expressions;
 
-namespace UnitOfWork
+namespace Cruddr
 {
     public static class QueryExtensions
     {

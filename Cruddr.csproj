@@ -8,8 +8,8 @@
     <ProjectGuid>{BFF345D0-7733-48AB-918B-308C4A114AE2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UnitOfWork</RootNamespace>
-    <AssemblyName>UnitOfWork</AssemblyName>
+    <RootNamespace>Cruddr</RootNamespace>
+    <AssemblyName>Cruddr</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>

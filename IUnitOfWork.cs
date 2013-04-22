@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Linq.Expressions;
 using System.Data.Entity;
-using UnitOfWork.PagedList;
+using Cruddr.PagedList;
 
 
-namespace UnitOfWork
+namespace Cruddr
 {
-    public interface IUnitOfWork : IDisposable
+    public interface ICruddr : IDisposable
     {
         string ERROR_MESSAGE { get;}
         int Commit();
@@ -51,13 +51,13 @@ namespace UnitOfWork
         void DisableLazyLoading(bool isDisabled);
     }
 
-    public interface IUnitOfWork<TContext> : IUnitOfWork
+    public interface ICruddr<TContext> : ICruddr
     {
         
     }
 
 
-    public interface ISuppliersContext : IUnitOfWork
+    public interface ISuppliersContext : ICruddr
     {
     }
 }
