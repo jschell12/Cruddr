@@ -17,7 +17,7 @@ namespace Cruddr
     /// <summary>
     /// This is a Cruddr-EntityFramework wrapper.
     /// </summary>
-    public class EFCruddr : ICruddr<DbContext>
+    public class EFCruddrContext : ICruddrContext<DbContext>
     {
         protected bool disposed = false;
 
@@ -45,13 +45,13 @@ namespace Cruddr
         /// </summary>
         /// <param name="context"></param>
         [Inject]
-        public EFCruddr(ExampleModelContainer context)
+        public EFCruddrContext(ExampleModelContainer context)
         {
             this.context = context;
 
         }
 
-        public EFCruddr()
+        public EFCruddrContext()
         {
             // Use dependency injection to create context
             this.context = new ExampleModelContainer();
