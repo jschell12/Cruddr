@@ -9,7 +9,7 @@ using Cruddr.PagedList;
 
 namespace Cruddr
 {
-    public interface ICruddr : IDisposable
+    public interface ICruddrContext : IDisposable
     {
         string ERROR_MESSAGE { get;}
         int Commit();
@@ -51,13 +51,13 @@ namespace Cruddr
         void DisableLazyLoading(bool isDisabled);
     }
 
-    public interface ICruddr<TContext> : ICruddr
+    public interface ICruddrContext<TContext> : ICruddrContext
     {
         
     }
 
 
-    public interface ISuppliersContext : ICruddr
+    public abstract class ACruddrContext : ICruddrContext
     {
     }
 }
