@@ -8,12 +8,12 @@ namespace Cruddr.PagedList
     ///<summary>
     /// Non-enumerable version of the PagedList class.
     ///</summary>
-    public class PagedListMetaData : IPagedList
+    public class PagedListMetadata : IPagedList
     {
         /// <summary>
         /// Protected constructor that allows for instantiation without passing in a separate list.
         /// </summary>
-        protected PagedListMetaData()
+        protected PagedListMetadata()
         {
         }
 
@@ -21,7 +21,7 @@ namespace Cruddr.PagedList
         /// Non-enumerable version of the PagedList class.
         ///</summary>
         ///<param name="pagedList">A PagedList (likely enumerable) to copy metadata from.</param>
-        public PagedListMetaData(IPagedList pagedList)
+        public PagedListMetadata(IPagedList pagedList)
         {
             PageCount = pagedList.PageCount;
             TotalItemCount = pagedList.TotalItemCount;

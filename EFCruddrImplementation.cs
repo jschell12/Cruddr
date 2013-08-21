@@ -17,44 +17,34 @@ namespace Cruddr
     /// <summary>
     /// This is a Cruddr-EntityFramework wrapper.
     /// </summary>
-    public class EFCruddrContext : ICruddrContext<DbContext>
+    public class EFCruddrImplementation : ICruddrImpl<DbContext>, ICruddrContext
     {
         protected bool disposed = false;
 
         #region Context
-        protected DbContext context;
-
-
+        protected DbContext _ctx;
         protected DbContext Context { get; set; }
         #endregion
-
-
-
-
+        
         #region queryString
         private string queryString;
         #endregion
-
-
-
-
-
-
+        
         /// <summary>
         /// Constructs unit of work.
         /// </summary>
-        /// <param name="context"></param>
+        /// <param name="_ctx"></param>
         [Inject]
-        public EFCruddrContext(ExampleModelContainer context)
+        public EFCruddrImplementation(DbContext ctx)
         {
-            this.context = context;
+            this._ctx = ctx;
 
         }
 
-        public EFCruddrContext()
+        public EFCruddrImplementation()
         {
-            // Use dependency injection to create context
-            this.context = new ExampleModelContainer();
+            // Use dependency injection to create _ctx
+            //this._ctx = new Db_ctx();
         }
 
         protected string errorMessage;
@@ -62,13 +52,13 @@ namespace Cruddr
 
 
         /// <summary>
-        /// Saves changes made to the object context.
+        /// Saves changes made to the object _ctx.
         /// </summary>
         public virtual int Commit()
         {
             try
             {
-                return this.context.SaveChanges();
+                return this._ctx.SaveChanges();
             }
             catch (Exception e)
             {
@@ -78,7 +68,7 @@ namespace Cruddr
         }
 
         /// <summary>
-        /// Rejects and discards all changes made to the object context.
+        /// Rejects and discards all changes made to the object _ctx.
         /// </summary>        
         public virtual void Rollback()
         {
@@ -88,8 +78,7 @@ namespace Cruddr
 
         public void DisableLazyLoading(bool isDisabled)
         {
-            this.context.Configuration.LazyLoadingEnabled = !isDisabled;
-
+            this._ctx.Configuration.LazyLoadingEnabled = !isDisabled;
         }
 
 
@@ -99,7 +88,7 @@ namespace Cruddr
         {
             try
             {
-                return this.context.Set<TEntity>().Create<TEntity>();
+                return this._ctx.Set<TEntity>().Create<TEntity>();
             }
             catch (Exception e)
             {
@@ -115,7 +104,7 @@ namespace Cruddr
             try
             {
                 this.ModifyState(tEntity);
-                return this.context.Set<TEntity>().Add(tEntity);
+                return this._ctx.Set<TEntity>().Add(tEntity);
             }
             catch (Exception e)
             {
@@ -145,7 +134,7 @@ namespace Cruddr
         {
             try
             {
-                return this.context.Set<TEntity>().Remove(tEntity);
+                return this._ctx.Set<TEntity>().Remove(tEntity);
             }
             catch (Exception e)
             {
@@ -161,7 +150,7 @@ namespace Cruddr
         {
             try
             {
-                IDbSet<TEntity> set = this.context.Set<TEntity>();
+                IDbSet<TEntity> set = this._ctx.Set<TEntity>();
 
                 var query = set.AsQueryable<TEntity>();
 
@@ -185,7 +174,7 @@ namespace Cruddr
         public virtual TEntity Get<TEntity>(Expression<Func<TEntity, bool>> where, params Expression<Func<TEntity, object>>[] includeProperties)
             where TEntity : class
         {
-            IDbSet<TEntity> set = this.context.Set<TEntity>();
+            IDbSet<TEntity> set = this._ctx.Set<TEntity>();
 
             var query = set.IncludeMultiple(includeProperties).AsQueryable<TEntity>();
 
@@ -207,7 +196,7 @@ namespace Cruddr
         public virtual IEnumerable<TEntity> GetMany<TEntity>(Expression<Func<TEntity, bool>> where, params Expression<Func<TEntity, object>>[] includeProperties)
             where TEntity : class
         {
-            IDbSet<TEntity> set = this.context.Set<TEntity>();
+            IDbSet<TEntity> set = this._ctx.Set<TEntity>();
 
             var query = set.IncludeMultiple(includeProperties).AsQueryable<TEntity>();
 
@@ -224,7 +213,7 @@ namespace Cruddr
         public virtual IEnumerable<TEntity> GetAll<TEntity>(params Expression<Func<TEntity, object>>[] includeProperties)
             where TEntity : class
         {
-            IDbSet<TEntity> set = this.context.Set<TEntity>();
+            IDbSet<TEntity> set = this._ctx.Set<TEntity>();
 
             var query = set.IncludeMultiple(includeProperties).AsQueryable<TEntity>();
 
@@ -239,7 +228,7 @@ namespace Cruddr
 
         public IPagedList<TEntity> GetPage<TEntity>(int pageNumber, int pageSize, Expression<Func<TEntity, object>> orderBy, out int totalRows, params Expression<Func<TEntity, object>>[] includeProperties) where TEntity : class
         {
-            IDbSet<TEntity> set = this.context.Set<TEntity>();
+            IDbSet<TEntity> set = this._ctx.Set<TEntity>();
 
             var query = set.IncludeMultiple(includeProperties).AsQueryable<TEntity>();
 
@@ -253,7 +242,7 @@ namespace Cruddr
 
         public IPagedList<TEntity> GetPage<TEntity>(Expression<Func<TEntity, bool>> where, int pageNumber, int pageSize, Expression<Func<TEntity, object>> orderBy, out int totalRows, params Expression<Func<TEntity, object>>[] includeProperties) where TEntity : class
         {
-            IDbSet<TEntity> set = this.context.Set<TEntity>();
+            IDbSet<TEntity> set = this._ctx.Set<TEntity>();
 
             var query = set.IncludeMultiple(includeProperties).AsQueryable<TEntity>();
 
@@ -272,8 +261,8 @@ namespace Cruddr
             where TOuter : class
             where TInner : class
         {
-            IDbSet<TOuter> set = this.context.Set<TOuter>();
-            IDbSet<TInner> setToRelate = this.context.Set<TInner>();
+            IDbSet<TOuter> set = this._ctx.Set<TOuter>();
+            IDbSet<TInner> setToRelate = this._ctx.Set<TInner>();
 
             var query1 = set.AsQueryable<TOuter>();
             if (where != null)
@@ -312,8 +301,8 @@ namespace Cruddr
             where TOuter : class
             where TInner : class
         {
-            IDbSet<TOuter> set = this.context.Set<TOuter>();
-            IDbSet<TInner> setToRelate = this.context.Set<TInner>();
+            IDbSet<TOuter> set = this._ctx.Set<TOuter>();
+            IDbSet<TInner> setToRelate = this._ctx.Set<TInner>();
 
             var query1 = set.AsQueryable<TOuter>();
             if (where != null)
@@ -349,7 +338,7 @@ namespace Cruddr
 
         protected void ModifyState<TEntity>(TEntity tEntity) where TEntity : class
         {
-            this.context.Entry(tEntity).State = EntityState.Modified;
+            this._ctx.Entry(tEntity).State = EntityState.Modified;
         }
 
 
@@ -361,7 +350,7 @@ namespace Cruddr
 
 
         /// <summary>
-        /// Disposes the unit of work and its context.
+        /// Disposes the unit of work and its _ctx.
         /// </summary>
         public void Dispose()
         {
@@ -377,18 +366,15 @@ namespace Cruddr
                 // If disposing equals true, dispose all managed and unmanaged resources.
                 if (disposing)
                 {
-                    if (this.context != null)
+                    if (this._ctx != null)
                     {
                         // Dispose managed resources.
-                        this.context.Dispose();
+                        this._ctx.Dispose();
                     }
                 }
             }
 
             disposed = true;
         }
-
-
-       
     }
 }

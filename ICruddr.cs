@@ -9,34 +9,33 @@ using Cruddr.PagedList;
 
 namespace Cruddr
 {
-    public interface ICruddrContext : IDisposable
+    public interface ICruddr : IDisposable
     {
-        string ERROR_MESSAGE { get;}
+        string ERROR_MESSAGE { get; }
         int Commit();
         void Rollback();
         TEntity Create<TEntity>() where TEntity : class;
         TEntity Insert<TEntity>(TEntity tEntity) where TEntity : class;
         TEntity Update<TEntity>(TEntity tEntity) where TEntity : class;
-        TEntity Delete<TEntity>(TEntity tEntity) where TEntity : class;        
+        TEntity Delete<TEntity>(TEntity tEntity) where TEntity : class;
         bool Exists<TEntity>(Expression<Func<TEntity, bool>> where) where TEntity : class;
 
-
-        TEntity Get<TEntity>(Expression<Func<TEntity, bool>> where, params Expression<Func<TEntity, object>>[] includeProperties) 
+        TEntity Get<TEntity>(Expression<Func<TEntity, bool>> where, params Expression<Func<TEntity, object>>[] includeProperties)
             where TEntity : class;
-        
-        IEnumerable<TEntity> GetAll<TEntity>(params Expression<Func<TEntity, object>>[] includeProperties) 
-            where TEntity : class;      
-       
-        IEnumerable<TEntity> GetMany<TEntity>(Expression<Func<TEntity, bool>> where, params Expression<Func<TEntity, object>>[] includeProperties) 
+
+        IEnumerable<TEntity> GetAll<TEntity>(params Expression<Func<TEntity, object>>[] includeProperties)
+            where TEntity : class;
+
+        IEnumerable<TEntity> GetMany<TEntity>(Expression<Func<TEntity, bool>> where, params Expression<Func<TEntity, object>>[] includeProperties)
             where TEntity : class;
 
         IPagedList<TEntity> GetPage<TEntity>(int skip, int take, Expression<Func<TEntity, object>> orderBy, out int totalRows, params Expression<Func<TEntity, object>>[] includeProperties)
            where TEntity : class;
         IPagedList<TEntity> GetPage<TEntity>(Expression<Func<TEntity, bool>> where, int skip, int take, Expression<Func<TEntity, object>> orderBy, out int totalRows, params Expression<Func<TEntity, object>>[] includeProperties)
-          where TEntity : class;  
+          where TEntity : class;
 
         ILookup<TOuter, TInner> GetRelated<TOuter, TInner, TKey>(Func<TOuter, TKey> outerKeySelector, Func<TInner, TKey> innerKeySelector,
-            Expression<Func<TOuter, bool>> where = null)	
+            Expression<Func<TOuter, bool>> where = null)
             where TOuter : class
             where TInner : class;
 
@@ -45,19 +44,14 @@ namespace Cruddr
             where TOuter : class
             where TInner : class;
 
-
-      
         string ToQueryString();
         void DisableLazyLoading(bool isDisabled);
     }
 
-    public interface ICruddrContext<TContext> : ICruddrContext
+    public interface ICruddrImpl<TContext> : ICruddr
     {
-        
     }
-
-
-    public abstract class ACruddrContext : ICruddrContext
+    public interface ICruddrContext : ICruddr
     {
     }
 }
